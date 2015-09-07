@@ -1,9 +1,7 @@
 CXX=g++
 CXXFLAGS=-Wall -std=c++11 -g -O0
-CXXFLAGS+=$(shell pkg-config jsoncpp --cflags)
-LDFLAGS=$(shell pkg-config jsoncpp --libs)
-CXXFLAGS+=-I/home/clement/opt/libusb-git/include/libusb-1.0
-LDFLAGS+=-L/home/clement/opt/libusb-git/lib -lusb-1.0
+CXXFLAGS+=$(shell pkg-config jsoncpp libusb-1.0 --cflags)
+LDFLAGS=$(shell pkg-config jsoncpp libusb-1.0 --libs)
 
 TARGET=k90-send-profile
 SRC= \
