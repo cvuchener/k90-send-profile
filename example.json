@@ -1,0 +1,98 @@
+[
+	{
+		"key": "G1",
+		"macro": [
+			{ "key": "LeftShift", "pressed": true },
+			{ "key": "T", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "T", "pressed": false },
+			{ "key": "LeftShift", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "E", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "E", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "S", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "S", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "T", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "T", "pressed": false }
+		]
+	},
+	{
+		"key": "G2",
+		"type": "key",
+		"new_key": "Compose"
+	},
+	{
+		"key": "G3",
+		"repeat_mode": "hold",
+		"macro": [
+			{ "key": "LeftShift", "pressed": true },
+			{ "key": "H", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "H", "pressed": false },
+			{ "key": "LeftShift", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "O", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "O", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "L", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "L", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "D", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "D", "pressed": false }
+		]
+	},
+	{
+		"key": "G4",
+		"repeat_count": 4,
+		"macro": [
+			{ "key": "LeftShift", "pressed": true },
+			{ "key": "R", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "R", "pressed": false },
+			{ "key": "LeftShift", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "E", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "E", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "P", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "P", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "E", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "E", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "A", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "A", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "T", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "T", "pressed": false }
+		]
+	},
+	{	/* This is a bad idea, but it is possible to modify non-G keys */
+		/* These settings are also used for G5 as it is not configured elsewhere */
+		"key": "A",
+		"repeat_mode": "toggle",
+		"macro": [
+			{ "key": "A", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "A", "pressed": false },
+			{ "delay": 50 },
+			{ "key": "B", "pressed": true },
+			{ "delay": 50 },
+			{ "key": "B", "pressed": false }
+		]
+	}
+]
+
