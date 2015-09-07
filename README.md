@@ -47,6 +47,7 @@ See the list of accepted keys in [KeyUsage.cpp](KeyUsage.cpp).
 
 See [default.json](default.json) or [example.json](example.json) for example profiles.
 
+Because of the hardware, the **key** member is not always used as it should.  It is only used in the first sixteen items. The 17th and 18th always match G17 and G18 and following do nothing. Also if the *Gn* key is not configured but there is a *n* th settings item it will be used for both configured key and the *Gn* key.
 
 License
 -------
