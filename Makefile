@@ -1,5 +1,6 @@
 CXX=g++
-CXXFLAGS=-Wall -std=c++11 -g -O0
+CXXFLAGS=-Wall -std=c++11
+#CXXFLAGS+=-g -O0
 CXXFLAGS+=$(shell pkg-config jsoncpp libusb-1.0 --cflags)
 LDFLAGS=$(shell pkg-config jsoncpp libusb-1.0 --libs)
 
