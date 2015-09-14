@@ -18,11 +18,13 @@
 
 #include <iostream>
 #include <sstream>
+#include <list>
 #include "KeyUsage.h"
 
 #include "Profile.h"
 
-Profile::Profile ()
+Profile::Profile ():
+	_layout (nullptr)
 {
 }
 
@@ -47,12 +49,11 @@ bool Profile::fromJsonValue (const Json::Value &profile)
 			return false;
 		}
 		key_str = profile[i]["key"].asString ();
-		it = key_usage.find (key_str);
-		if (it == key_usage.end ()) {
+		_keys[i].key_usage = findKeyUsage (key_str);
+		if (_keys[i].key_usage == 0) {
 			std::cerr << "Unknown key: " << key_str << std::endl;
 			return false;
 		}
-		_keys[i].key_usage = it->second;
 
 		if (profile[i].isMember ("repeat_mode")) {
 			std::string repeat_mode = profile[i]["repeat_mode"].asString ();
@@ -96,12 +97,11 @@ bool Profile::fromJsonValue (const Json::Value &profile)
 				return false;
 			}
 			key_str = profile[i]["new_key"].asString ();
-			it = key_usage.find (key_str);
-			if (it == key_usage.end ()) {
+			_keys[i].target_usage = findKeyUsage (key_str);
+			if (_keys[i].target_usage == 0) {
 				std::cerr << "Unknown key: " << key_str << std::endl;
 				return false;
 			}
-			_keys[i].target_usage = it->second;
 			break;
 		}
 
@@ -125,12 +125,11 @@ bool Profile::fromJsonValue (const Json::Value &profile)
 				if (macro[j].isMember ("key")) {
 					_keys[i].macro[j].type = ItemKey;
 					key_str = macro[j]["key"].asString ();
-					it = key_usage.find (key_str);
-					if (it == key_usage.end ()) {
+					_keys[i].macro[j].key_event.usage = findKeyUsage (key_str);
+					if (_keys[i].macro[j].key_event.usage == 0) {
 						std::cerr << "Unknown key: " << key_str << std::endl;
 						return false;
 					}
-					_keys[i].macro[j].key_event.usage = it->second;
 					if (!macro[j].isMember ("pressed")) {
 						std::cerr << "Missing \"pressed\" member in macro item" << std::endl;
 						return false;
@@ -217,4 +216,29 @@ void Profile::buildData (std::string &keys_str, std::string &bindings_str, std::
 	}
 	keys_str = keys.str ();
 	bindings_str = bindings.str ();
+}
+
+bool Profile::setLayout (const std::string &layout)
+{
+	auto it = KeyUsage::layouts.find (layout);
+	if (it == KeyUsage::layouts.end ()) {
+		_layout = nullptr;
+		return false;
+	}
+	_layout = &it->second;
+	return true;
+}
+
+uint8_t Profile::findKeyUsage (std::string key_name) const
+{
+	std::list<const std::map<std::string, uint8_t> *> maps = { &KeyUsage::keymap };
+	if (_layout)
+		maps.push_front (_layout);
+
+	for (auto map: maps) {
+		auto it = map->find (key_name);
+		if (it != map->end ())
+			return it->second;
+	}
+	return 0;
 }

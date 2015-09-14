@@ -26,6 +26,7 @@
 
 extern "C" {
 #include <unistd.h>
+#include <getopt.h>
 #include <libusb.h>
 }
 
@@ -44,17 +45,55 @@ extern "C" {
 
 #define MODE_HARDWARE	0x01
 
+static const char *usage =
+	"Usage: %s [options]profile_number [file]\n"
+	"Options are:\n"
+	" -l<layout>,--layout <layout>	Use layout when reading keys.\n"
+	;
+
 int main (int argc, char *argv[])
 {
+	enum {
+		LayoutOpt = 256,
+		HelpOpt,
+	};
+	struct option longopts[] = {
+		{ "layout", required_argument, nullptr, LayoutOpt },
+		{ "help", no_argument, nullptr, HelpOpt },
+		{ nullptr, 0, nullptr, 0 }
+	};
 	int profile_number;
 	uint8_t mode[2];
+	Profile profile;
 
-	if (argc < 2 || argc > 3) {
-		fprintf (stderr, "Usage: %s profile_number [file]\n", argv[0]);
+	int opt;
+	while (-1 != (opt = getopt_long (argc, argv, "l:h", longopts, nullptr))) {
+		switch (opt) {
+		case 'l':
+		case LayoutOpt:
+			if (!profile.setLayout (optarg)) {
+				fprintf (stderr, "Unknown layout: %s\n", optarg);
+				return EXIT_FAILURE;
+			}
+			break;
+
+		case 'h':
+		case HelpOpt:
+			fprintf (stderr, usage, argv[0]);
+			return EXIT_SUCCESS;
+
+		default:
+			return EXIT_FAILURE;
+		}
+	}
+
+	fprintf (stderr, "%d %d", optind, argc);
+	if (argc-optind < 1 || argc-optind > 2) {
+		fprintf (stderr, usage, argv[0]);
 		return EXIT_FAILURE;
 	}
 	
-	profile_number = strtol (argv[1], nullptr, 0);
+	profile_number = strtol (argv[optind+0], nullptr, 0);
 	if (profile_number < 1 || profile_number > 3) {
 		fprintf (stderr, "Invalid profile number\n");
 		return EXIT_FAILURE;
@@ -66,8 +105,8 @@ int main (int argc, char *argv[])
 	Json::Value profile_json;
 	Json::Reader reader;
 	bool ok;
-	if (argc == 3) {
-		std::ifstream file (argv[2], std::ifstream::in);
+	if (argc-optind == 2) {
+		std::ifstream file (argv[optind+1], std::ifstream::in);
 		ok = reader.parse (file, profile_json);
 	}
 	else
@@ -79,7 +118,6 @@ int main (int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	Profile profile;
 	if (!profile.fromJsonValue (profile_json)) {
 		fprintf (stderr, "Invalid profile structure\n");
 		return EXIT_FAILURE;

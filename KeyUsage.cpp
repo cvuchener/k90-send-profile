@@ -18,7 +18,7 @@
 
 #include "KeyUsage.h"
 
-const std::map<std::string, uint8_t> key_usage = {
+const std::map<std::string, uint8_t> KeyUsage::keymap = {
 	{ "A", 0x04 },
 	{ "B", 0x05 },
 	{ "C", 0x06 },
@@ -166,4 +166,33 @@ const std::map<std::string, uint8_t> key_usage = {
 	{ "RightMeta", 0xe7 },
 };
 
-
+const std::map<std::string, std::map<std::string, uint8_t>> KeyUsage::layouts = {
+	{ "AZERTY-Fr", {
+		{ "A", 0x14 },
+		{ "Z", 0x1a },
+		{ "Q", 0x04 },
+		{ "M", 0x33 },
+		{ "W", 0x1d },
+		{ "Square", 0x35 },
+		{ "Ampersand", 0x1e },
+		{ "EAcute", 0x1f },
+		{ "Quotes", 0x20 },
+		{ "Apostrophe", 0x21 },
+		{ "LeftParenthesis", 0x22 },
+		{ "Minus", 0x23 },
+		{ "EGrave", 0x24 },
+		{ "Underscore", 0x25 },
+		{ "CCedilla", 0x26 },
+		{ "AGrave", 0x27 },
+		{ "RightParenthesis", 0x2d },
+		{ "Circumflex", 0x2f },
+		{ "Dollar", 0x30 },
+		{ "UGrave", 0x34 },
+		{ "Asterisk", 0x32 },
+		{ "Comma", 0x10 },
+		{ "SemiColon", 0x36 },
+		{ "Colon", 0x37 },
+		{ "Exclamation", 0x38 },
+		{ "LessThan", 0x64 },
+	}},
+};

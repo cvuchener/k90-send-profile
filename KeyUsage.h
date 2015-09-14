@@ -23,6 +23,10 @@
 #include <string>
 #include <cstdint>
 
-extern const std::map<std::string, uint8_t> key_usage;
+namespace KeyUsage
+{
+extern const std::map<std::string, uint8_t> keymap;
+extern const std::map<std::string, std::map<std::string, uint8_t>> layouts;
+}
 
 #endif

@@ -29,11 +29,14 @@ public:
 	Profile ();
 	~Profile ();
 
+	bool setLayout (const std::string &layout);
+
 	bool fromJsonValue (const Json::Value &profile);
 
 	void buildData (std::string &keys, std::string &bindings, std::string &data) const;
 
 private:
+	uint8_t findKeyUsage (std::string key_name) const;
 	enum BindType: uint8_t {
 		BindNone = 0x00,
 		BindUsage = 0x10,
@@ -71,6 +74,7 @@ private:
 	};
 
 	std::vector<key_t> _keys;
+	const std::map<std::string, uint8_t> *_layout;
 };
 
 #endif

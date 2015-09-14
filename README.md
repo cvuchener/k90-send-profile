@@ -13,12 +13,15 @@ Usage
 -----
 
 ```
-./k90-send-profile profile_number [file]
+./k90-send-profile [options] profile_number [file]
 ```
 
 The program sends the profile to the macro profile `profile_number` on the K90 keyboard.
 
 The `profile_number` must be between 1 and 3. If no file is provided, the profile is read from stdin.
+
+Options are:
+ - `-l<layout>`, `--layout [layout]` Use `<layout>` when reading keys (see KeyUsage.cpp). Make writing macro for non QWERTY-US keyboards, easier.
 
 
 Profile file format
