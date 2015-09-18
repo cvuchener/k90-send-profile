@@ -87,7 +87,6 @@ int main (int argc, char *argv[])
 		}
 	}
 
-	fprintf (stderr, "%d %d", optind, argc);
 	if (argc-optind < 1 || argc-optind > 2) {
 		fprintf (stderr, usage, argv[0]);
 		return EXIT_FAILURE;
