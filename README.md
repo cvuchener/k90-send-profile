@@ -1,3 +1,5 @@
+This software is deprecated and is replaced by [corsair-usb-config](https://github.com/cvuchener/corsair-usb-config).
+
 Sending hardware profiles to the Corsair K90 keyboards
 ======================================================
 
